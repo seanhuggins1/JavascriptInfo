@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            #circle {
+                transition-property: width, height;
+                transition-duration: 1s;
+                position: fixed;
+                transform: translateX(-50%) translateY(-50%);
+                border-radius: 50%;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: black;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+
+
+            function showCircle(cx, cy, radius, backgroundColor){
+                return new Promise(function (resolve, reject) {
+                    let circle = document.createElement('div');
+                    circle.id = "circle";
+                    circle.style.width = 0;
+                    circle.style.height = 0;
+                    circle.style.backgroundColor = backgroundColor;
+                    circle.style.left = cx + 'px';
+                    circle.style.top = cy + 'px';
+                    document.body.append(circle);
+                    
+                    setTimeout(() => {
+                        circle.style.width = radius*2 + 'px';
+                        circle.style.height = radius*2 + 'px';
+                        circle.addEventListener('transitionend', function handler() {
+                            circle.removeEventListener('transitionend', handler);
+                            resolve("done!");
+                        });
+                    }, 0);
+
+                });
+            }
+            
+            let promise = showCircle(0,0,1200, 'white');
+            promise.then(alert);
+
+        </script>
+    </body>
+</html>
