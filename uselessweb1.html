@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+      <head>
+            <style>
+
+                  body {
+                        margin: 0;
+                        padding: 0;
+                  }
+
+            </style>
+
+      </head>
+      <body>
+            <button onclick="shuffle()">Shuffle</button>
+            <script>
+                  let columns = 100;
+                  let rows = 100;
+
+                  let grid = document.createElement('div');
+                  grid.style.display = 'grid';
+                  grid.style.width = '100vw';
+                  grid.style.height = '100vh';
+                  grid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+                  grid.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+                  grid.id = 'grid';
+                  document.body.append(grid);
+                  
+                  function* pseudoRandom(seed){
+                        let result = seed;
+                        while(true){
+                              result = (result*3245) % 4294967296;
+                              yield result;
+                        }
+                  }
+
+
+                  function padWithLeadingZeros(number, size){
+                        while (number.length < size){
+                              number = "0" + number;
+                        }
+                        return number;
+                  }
+                  let generator = pseudoRandom(69);
+                  function shuffle() {
+                        for (let i = 1; i <= columns; i++){
+                              for (let j = 1; j <= rows; j++){
+                                    let grid_elem = document.createElement('div');
+                                    grid_elem.style.gridColumn = `${i}`;
+                                    grid_elem.style.gridRow = `${j}`;
+                                    let color = generator.next().value;
+                                    grid_elem.style.backgroundColor = `#${padWithLeadingZeros(color.toString(16), 8)}`;
+                                    document.getElementById('grid').append(grid_elem);
+                              }
+                        }
+                  }
+                  shuffle();
+
+            </script>
+      </body>
+</html>

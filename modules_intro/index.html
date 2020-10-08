@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+      <head>
+
+      </head>
+      <body>
+            <script type="module">
+                  import {sayHi} from './say.js';
+                  document.body.innerHTML = sayHi('John');
+
+                  let user = "John"; //this user variable will only exist in the scope of this module script
+            </script>
+            <!--Independent top level scope also exists for each script with type module-->
+            <script type="module">
+                  alert(user); //user undefined
+            </script>
+            <script type="module" src="my.js"></script>
+            <script type="module" src="my.js">//external scripts will only load once</script>     
+            <script type="module" src="http://another-site.com/their.js">
+                  //module script coming from a different origin, must supply a header Access-Control-Allow-Origin
+                  //otherwise the script won't be fetched
+            </script>
+      </body>
+</html>

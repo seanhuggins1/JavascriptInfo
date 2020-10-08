@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+      <head>
+            
+      </head>
+      <body>
+            <script>
+                  fetch('https://api01.iq.questrade.com/v1/accounts', {
+                        headers: {
+                              'Authorization': 'Bearer ' + 'ySib-Jpwo-1pYZMBXRmL4DuF8w8Oi9TP0'
+                        }
+                  })
+                  .then(response => response.json())
+                  .then(json => alert(JSON.stringify(json, null, 2)));
+            </script>
+      </body>
+</html>
